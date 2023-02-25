@@ -3,6 +3,9 @@ from models.message_control import MessageControl
 
 class WhatsApp(Message):
     
+    def t():
+        print('ok')
+
     def check_if_have_only_number(self, message: str):
         return
     

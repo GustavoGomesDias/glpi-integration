@@ -1,10 +1,12 @@
 import codecs
 from configparser import ConfigParser
+from pathlib import Path
 
 
-def set_config(section: str, property_lst: list[str], root_dir: str) -> dict[dict[str, str], str]:
+def set_config(section: str, property_lst: list[str]) -> dict[dict[str, str], str]:
     configParser = ConfigParser()
-    CONFIG_PATH: str = root_dir + '/config.ini'
+
+    CONFIG_PATH = Path(__file__, '..', '..', '..', 'config.ini').resolve()
 
     with codecs.open(CONFIG_PATH, 'r', encoding='utf-8') as f:
         configParser.readfp(f)
