@@ -1,16 +1,16 @@
-from adapters.Message import Message
-from models.message_control import MessageControl
+from pathlib import Path
+from src.services.adapters.Message import Message
+from datetime import datetime
+import pywhatkit
 
 class WhatsApp(Message):
 
-    def check_if_have_only_number(self, message: str):
-        return
+    def __init__(self) -> None:
+        super().__init__()
     
-    def send_message_reply(self, message_replt: str):
-        return
-    
-    def check_if_is_initial_message(self, message_contro: MessageControl):
-        return
+    def send_message(self, phone_number: str, message: str):
 
-    def add_in_message_control(self, message_control: MessageControl):
-        return
+        actual_hour = datetime.now().hour
+        actual_minute = datetime.now().minute + 1
+
+        pywhatkit.sendwhatmsg('+55027996091279', message, actual_hour, actual_minute, 15, True, 2)

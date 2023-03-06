@@ -12,20 +12,22 @@ class TicketManager(metaclass=abc.ABCMeta):
         self.session_token: str = ''
         self.api_link = api_link
 
+    @abc.abstractmethod
     def convert_date(self, date: str) -> datetime:
-        if date == None:
-            return ''
+        pass
 
-        return datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
-
+    @abc.abstractmethod
     def clear_request_response(self, response: bytes) -> dict[str, str | int]:
         return json.loads(str(response).replace('b', '').replace("'", ""))
 
+    @abc.abstractmethod
     def init_session(self) -> None:
         pass
 
+    @abc.abstractmethod
     def kill_session(self) -> None:
         pass
 
+    @abc.abstractmethod
     def get_ticket_info(self, ticket_number: int) -> Ticket:
         pass

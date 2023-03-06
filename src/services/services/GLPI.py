@@ -1,5 +1,6 @@
 from src.services.adapters.TicketManager import TicketManager
 from src.models.ticket import Ticket
+from datetime import datetime
 import requests
 import base64
 
@@ -39,6 +40,12 @@ class GLPI(TicketManager):
 
         requests.get('{}/killSession'.format(self.api_link), headers=headers)
 
+    def convert_date(self, date: str) -> datetime:
+        if date == None:
+            return ''
+
+        return datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
+
     def clear_content(self, content: str):
         return content.replace('&#60;/p&#62;', '').replace('&#60;p&#62;', '')
 
@@ -53,7 +60,7 @@ class GLPI(TicketManager):
             'Content-Type': 'applicatin/json',
             'Authorization': 'Basic ' + str(login_b64).replace('b', '').replace("'", ""),
             'App-Token': self.access_token,
-            'Session-Token':  self.session_token
+            'Session-Token':  self.session_token # 'trocar esse token depois de gerar um session_token'
         }
         response = requests.get('{}/Ticket/{}'.format(self.api_link, ticket_number), headers=headers)
         dict_response = self.clear_request_response(response.content)
