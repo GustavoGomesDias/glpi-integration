@@ -13,4 +13,4 @@ class WhatsApp(Message):
         actual_hour = datetime.now().hour
         actual_minute = datetime.now().minute + 1
 
-        pywhatkit.sendwhatmsg('+55027996091279', message, actual_hour, actual_minute, 15, True, 2)
+        pywhatkit.sendwhatmsg('', message, actual_hour, actual_minute, 15, True, 2)
